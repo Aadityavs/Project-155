@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe
+    -physics-system@v4.0.1/dist/aframephysics-system.min.js"></script>
+    <!-- IMPORTED COMPONENTS -->    
+    <script src="./components/Rotation.js"></script>
+    <script src="./components/Coins.js"></script>
+    <script src="./components/Fishes.js"></script>
+    <script src="./components/Game.js"></script>
+    
+  </head>
+  <body>
+    <a-scene >
+      <a-camera position="0 25 60" ></a-camera>
+      <!---Assets-->
+      <a-a-assets>
+        <a-asset-item id="island" src="./models/lowpoly_island/scene.gltf"></a-asset-item>    
+
+        <a-asset-item
+          id="scuba-diver" src="./models/scuba_diver/scene.gltf"
+        ></a-asset-item>
+
+      </a-a-assets>
+
+      <a-sky 
+        material="shader: gradient; bottomColor: #00009e; topColor:109 205 227;offset: 0.0001;"
+        animation="property: rotation; to: 0 300 0; easing:linear; loop: true; dur: 500000"></a-sky>
+
+      <a-entity >
+        <a-entity gltf-model="#scuba-diver" scale="6 6 6" 
+        position="2 18 45" rotation="0 175 0" 
+        diver-position-reader 
+        dynamic-body="mass: 0"
+        game-play>
+
+            <a-sphere radius="0.05" position="0.05 1.03 0" color="lightblue"
+            animation="property: position; to: 0 200 0;
+            easing:linear; loop: true; dur: 250000"></a-sphere>
+            <a-sphere radius="0.04" position="-0.05 0.9 0" color="lightblue"
+            animation="property: position; to: 0 200 0;
+            easing:linear; loop: true; dur: 300000"></a-sphere>
+            <a-sphere radius="0.03" position="0 0.8 0" color="lightblue"
+            animation="property: position; to: 0 200 0;
+            easing:linear; loop: true; dur: 350000"></a-sphere>
+
+        </a-entity>
+      </a-entity>
+
+      <a-entity id="terrain"
+       animation="property: position; to: 0 0 1000;
+       easing:linear; loop: true; dur: 2500000"
+       terrain-rotation-reader 
+       target-coin 
+       fishes>
+        <a-entity position="0 15 0" rotation="0 95 0" 
+        scale="0.2 0.2 0.2" gltf-model="#island"></a-entity>
+
+        <a-cylinder position="0 -10 0" height="45" color="blue" radius="100" opacity="0.8"></a-cylinder>
+      </a-entity>
+
+    </a-scene>
+  </body>
+</html>
